@@ -1,75 +1,86 @@
 # 🛰️ Segmentarea Imaginilor bazată pe Contururi
 ### Prelucrarea și Analiza Imaginilor — Universitatea din Oradea
-**Specializarea:** Electronică Aplicată, Anul 3  
-**Autor:** Robert Moldovan  
+**Specializarea:** Electronică Aplicată, Anul 3  
+**Autor:** Robert Moldovan  
 **Imagini:** Fotografie aeriană originală — DJI Neo 2, regiunea Oradea, România
 
 ---
 
-## 📋 Obiectivul Proiectului
-Acest proiect reprezintă o analiză comparativă a **5 operatori fundamentali de detecție a contururilor**, aplicați pe un set de imagini aeriene originale (Primăria Oradea, peisaj lacustru, șosea la apus). 
+## 📋 Descrierea proiectului
 
-Proiectul vizează evaluarea comportamentului acestor algoritmi în condiții variate de iluminare pentru a determina eficiența fiecărei metode în extragerea trăsăturilor geometrice relevante din imaginile brute.
+Proiect care implementează și compară **5 operatori clasici de detecție a contururilor** aplicați pe imagini aeriene originale capturate cu drona DJI Neo 2 deasupra regiunii Oradea.
 
----
-
-## 🚀 Integrare în Sisteme Embedded (Drone)
-Acest proiect explorează fundamentele **viziunii artificiale (Computer Vision)**, esențiale pentru dronele moderne:
-
-* **Navigație și Obstacole:** Algoritmii de *edge detection* (ex: Canny) permit dronelor să identifice linii de orizont și structuri, fiind critici pentru evitarea coliziunilor.
-* **Procesare de Semnal (DSP):** Matematica din spatele convoluției este fundamentul oricărui sistem electronic de procesare, fiind o competență cheie pentru inginerii electroniști.
-* **Hardware Optimization:** Demonstrează înțelegerea necesară pentru a trece de la prototiparea matematică în MATLAB la implementări de nivel jos (C/C++) necesare pe procesoarele de zbor.
+Scopul principal este analiza comparativă a performanței fiecărui algoritm în condiții diferite de iluminare:
+- 🌙 **Fotografie de noapte** — Primăria Oradea, iluminat artificial, zgomot ISO ridicat
+- ☀️ **Fotografie de zi** — Lac și pădure, lumină naturală uniformă, contururi organice
+- 🌅 **Fotografie la apus** — Șosea, contrast dramatic cer/pământ, condiții de low-light
 
 ---
 
 ## 🔬 Metode implementate
-1. **Sobel:** Gradient de ordinul 1; rapid, dar sensibil la zgomot.
-2. **Gaussian + Sobel:** Pre-procesare (blur); reduce zgomotul, dar atenuează detaliile fine.
-3. **Prewitt:** Gradient de ordinul 1; detecție uniformă.
-4. **Canny:** Standardul industrial; cel mai robust datorită *hysteresis thresholding*.
-5. **LoG:** Laplacian de ordinul 2; foarte sensibil la texturi fine.
+
+| Metodă | Tip operator | Caracteristică principală |
+|--------|-------------|--------------------------|
+| **Sobel** | Gradient de ordinul 1 | Sensibil la zgomot, rapid |
+| **Gaussian + Sobel** | Pre-procesare + gradient | Reduce zgomotul, slăbește contururile |
+| **Prewitt** | Gradient de ordinul 1 | Similar Sobel, kernel uniform |
+| **Canny (ajustat)** | Multi-etapă | Cel mai robust, parametri optimi per imagine |
+| **LoG** | Laplacian de ordinul 2 | Foarte sensibil, detectează orice variație |
 
 ---
 
-## 📊 Rezultate Cantitative
+## 📊 Rezultate cantitative
+
+Densitatea pixelilor de contur detectați (% din totalul imaginii):
 
 | Imagine | Sobel | Gauss+Sobel | Prewitt | Canny | LoG |
 |---------|-------|-------------|---------|-------|-----|
-| **IMG1 (Noapte)** | 3.944% | 1.552% | 3.933% | 2.329% | 6.251% |
-| **IMG2 (Lac)** | 4.523% | 1.995% | 4.530% | 10.081% | 9.773% |
-| **IMG3 (Șosea)** | 1.803% | 0.968% | 1.802% | 0.423% | 5.487% |
-
-### Grafic: Densitatea pixelilor de contur (%)
-
-```mermaid
-graph LR
-    IMG1 --> LoG_1(6.25%)
-    IMG2 --> Canny_2(10.08%)
-    IMG3 --> LoG_3(5.48%)
----
-
-## 🛠️ Stack Tehnic
-* **Procesare & Analiză:** MATLAB R2026a (Image Processing Toolbox)
-* **Hardware Captură:** DJI Neo 2 (Filtre ND/PL Freewell pentru contrast optim)
-* **Workflow:** Optimizat pentru experimente de tip *Embedded Vision*
+| IMG1 Noapte | 3.944% | 1.552% | 3.933% | 2.329% | 6.251% |
+| IMG2 Lac | 4.523% | 1.995% | 4.530% | 10.081% | 9.773% |
+| IMG3 Șosea | 1.803% | 0.968% | 1.802% | 0.423% | 5.487% |
 
 ---
 
-## 📁 Structură Repository
-* `/src`: Codul sursă MATLAB (`main.m`) — structurat modular pentru testare rapidă.
-* `/images`: Folder care conține imaginile sursă (input) și rezultatele procesate (output).
-* `/raport`: Documentația completă:
-    * `raport_PAI.pdf`: Analiza matematică și concluziile tehnice detaliate.
-    * `raport_PAI.docx`: Versiunea editabilă a raportului.
-    * `Prezentare_Proiect.pptx`: Suport vizual pentru susținerea proiectului.
+## 🧠 Concluzii principale
+
+- **Gaussian + Sobel** produce întotdeauna cea mai mică densitate — blur-ul elimină atât zgomotul cât și contururile fine
+- **Canny ajustat** e cel mai selectiv pe IMG3 (0.4%) — detectează doar contururile cu adevărat semnificative
+- **LoG** are cea mai mare densitate în toate cazurile — confirmat ca prea sensibil pentru imagini aeriene fără pre-procesare agresivă
+- **Prewitt vs Sobel** — diferențe sub 0.01%, Prewitt ușor mai neted datorită kernelului uniform
 
 ---
 
-## ▶️ Instrucțiuni de rulare
-1. Clonează repository-ul: `git clone https://github.com/robert-md-or/PAI-Edge-Detection`
-2. Deschide MATLAB și navighează în folderul `src/`.
-3. Rulează `main.m`. Scriptul va procesa automat setul de date și va genera output-urile în folderul `images/output/`.
+## 🛠️ Tehnologii folosite
+
+- **MATLAB R2026a** — procesare și vizualizare
+- **DJI Neo 2** — capturare imagini aeriene
+- **Image Processing Toolbox** — funcții `edge()`, `imgaussfilt()`, `imresize()`
 
 ---
-*Proiect realizat ca parte a pregătirii inginerești în Electronică Aplicată, punând accent pe corelația dintre teoria procesării de semnal și autonomia sistemelor aeriene.*
-*Proiect realizat ca parte a formării de inginer electronist, punând accent pe aplicabilitatea practică în domeniul sistemelor aeriene autonome.*
+
+## 📁 Structura proiectului
+
+PAI-Edge-Detection/
+
+├── src/
+
+│   └── main.m              # Script principal MATLAB
+
+├── images/
+
+│   ├── input/              # Imagini originale DJI
+
+│   └── output/             # Rezultate generate (PNG 300 DPI)
+
+└── raport/
+
+└── raport_PAI.pdf      # Raport final
+
+---
+
+## ▶️ Rulare
+
+1. Clonează repository-ul
+2. Deschide MATLAB și navighează în folderul `src/`
+3. Rulează `main.m`
+4. Figurile se salvează automat în `images/output/`
