@@ -40,6 +40,7 @@ Acest proiect explorează fundamentele **viziunii artificiale (Computer Vision)*
 | **IMG3 (Șosea)** | 1.803% | 0.968% | 1.802% | 0.423% | 5.487% |
 
 ### Grafic: Densitatea pixelilor de contur (%)
+
 ```mermaid
 graph LR
     IMG1 --> LoG_1(6.25%)
