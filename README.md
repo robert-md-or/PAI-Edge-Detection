@@ -39,15 +39,12 @@ Acest proiect explorează fundamentele **viziunii artificiale (Computer Vision)*
 | **IMG2 (Lac)** | 4.523% | 1.995% | 4.530% | 10.081% | 9.773% |
 | **IMG3 (Șosea)** | 1.803% | 0.968% | 1.802% | 0.423% | 5.487% |
 
-### Grafic Comparativ: Densitatea pixelilor de contur
+### Grafic: Densitatea pixelilor de contur (%)
 ```mermaid
-graph TD
-    A[IMG1 - Noapte] -->|Cea mai mare densitate| LoG(6.251%)
-    A -->|Cea mai mică densitate| GaussSobel(1.552%)
-    B[IMG2 - Lac] -->|Cea mai mare densitate| Canny(10.081%)
-    B -->|Cea mai mică densitate| GaussSobel2(1.995%)
-    C[IMG3 - Șosea] -->|Cea mai mare densitate| LoG3(5.487%)
-    C -->|Cea mai mică densitate| Canny3(0.423%)
+graph LR
+    IMG1 --> LoG_1(6.25%)
+    IMG2 --> Canny_2(10.08%)
+    IMG3 --> LoG_3(5.48%)
 ---
 
 ## 🛠️ Stack Tehnic
