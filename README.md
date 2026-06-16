@@ -9,30 +9,29 @@
 ## 📋 Obiectivul Proiectului
 Acest proiect reprezintă o analiză comparativă a **5 operatori fundamentali de detecție a contururilor**, aplicați pe un set de imagini aeriene originale (Primăria Oradea, peisaj lacustru, șosea la apus). 
 
-Proiectul vizează evaluarea comportamentului acestor algoritmi în condiții variate de iluminare (noapte cu ISO ridicat, lumină naturală, contrast dramatic) pentru a determina eficiența fiecărei metode în extragerea trăsăturilor geometrice și a contururilor relevante din imaginile brute.
+Proiectul vizează evaluarea comportamentului acestor algoritmi în condiții variate de iluminare pentru a determina eficiența fiecărei metode în extragerea trăsăturilor geometrice relevante din imaginile brute.
 
 ---
 
-## 🚀 Integrare în Sisteme Embedded și Drone
-Dincolo de cerințele academice, acest proiect explorează fundamentele **viziunii artificiale (Computer Vision)**, domeniu vital pentru ingineria sistemelor autonome:
+## 🚀 Integrare în Sisteme Embedded (Drone)
+Acest proiect explorează fundamentele **viziunii artificiale (Computer Vision)**, esențiale pentru dronele moderne:
 
-* **Importanța în Drone:** Sistemele de navigație aeriană (precum drona DJI Neo 2 utilizată aici) utilizează algoritmi de *edge detection* în timp real pentru a identifica liniile de orizont, structurile arhitecturale și obstacolele, fiind esențiali pentru procesele de stabilizare optică și evitare a coliziunilor.
-* **Procesare de Semnal (DSP):** Matematica din spatele convoluției — inima acestor algoritmi — este aceeași cu cea folosită în filtrarea semnalelor radio și în sistemele moderne de comunicații, fiind o competență de bază pentru orice inginer electronist.
-* **De la MATLAB la C++:** Acest proiect demonstrează tranziția de la prototiparea matematică (MATLAB) la logica necesară implementării în cod de nivel jos (C/C++) ce rulează pe hardware-ul dedicat sistemelor embedded.
-
----
-
-## 🔬 Metode implementate și Teorie
-Am implementat și analizat 5 operatori, fiecare având un comportament specific:
-1. **Sobel:** Gradient de ordinul 1; rapid, dar sensibil la zgomotul din imagini.
-2. **Gaussian + Sobel:** Combină pre-procesarea (blur) cu gradientul; reduce zgomotul, dar tinde să atenueze detaliile fine.
-3. **Prewitt:** Gradient de ordinul 1; oferă o detecție uniformă datorită kernelului simplu.
-4. **Canny:** Standardul de aur; utilizează *hysteresis thresholding* pentru rezultate robuste, fiind cel mai echilibrat algoritm pentru condiții dificile.
-5. **LoG (Laplacian of Gaussian):** Operator de ordinul 2; foarte sensibil, ideal pentru detalii dar susceptibil la detecții false în imagini cu textură bogată.
+* **Navigație și Obstacole:** Algoritmii de *edge detection* (ex: Canny) permit dronelor să identifice linii de orizont și structuri, fiind critici pentru evitarea coliziunilor.
+* **Procesare de Semnal (DSP):** Matematica din spatele convoluției este fundamentul oricărui sistem electronic de procesare, fiind o competență cheie pentru inginerii electroniști.
+* **Hardware Optimization:** Demonstrează înțelegerea necesară pentru a trece de la prototiparea matematică în MATLAB la implementări de nivel jos (C/C++) necesare pe procesoarele de zbor.
 
 ---
 
-## 📊 Rezultate cantitative (Densitatea pixelilor de contur)
+## 🔬 Metode implementate
+1. **Sobel:** Gradient de ordinul 1; rapid, dar sensibil la zgomot.
+2. **Gaussian + Sobel:** Pre-procesare (blur); reduce zgomotul, dar atenuează detaliile fine.
+3. **Prewitt:** Gradient de ordinul 1; detecție uniformă.
+4. **Canny:** Standardul industrial; cel mai robust datorită *hysteresis thresholding*.
+5. **LoG:** Laplacian de ordinul 2; foarte sensibil la texturi fine.
+
+---
+
+## 📊 Rezultate Cantitative
 
 | Imagine | Sobel | Gauss+Sobel | Prewitt | Canny | LoG |
 |---------|-------|-------------|---------|-------|-----|
@@ -40,6 +39,15 @@ Am implementat și analizat 5 operatori, fiecare având un comportament specific
 | **IMG2 (Lac)** | 4.523% | 1.995% | 4.530% | 10.081% | 9.773% |
 | **IMG3 (Șosea)** | 1.803% | 0.968% | 1.802% | 0.423% | 5.487% |
 
+### Grafic Comparativ: Densitatea pixelilor de contur
+```mermaid
+graph TD
+    A[IMG1 - Noapte] -->|Cea mai mare densitate| LoG(6.251%)
+    A -->|Cea mai mică densitate| GaussSobel(1.552%)
+    B[IMG2 - Lac] -->|Cea mai mare densitate| Canny(10.081%)
+    B -->|Cea mai mică densitate| GaussSobel2(1.995%)
+    C[IMG3 - Șosea] -->|Cea mai mare densitate| LoG3(5.487%)
+    C -->|Cea mai mică densitate| Canny3(0.423%)
 ---
 
 ## 🛠️ Stack Tehnic
